@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package manager;
+
+option go_package = "./proto;proto";
+
+service Manager {
+  rpc RegisterNode(Node) returns (Node) {}
+}
+
+
+message Node {
+  string name = 1;
+  string ip_address = 2;
+  float cpu = 3;
+  float memory = 4;
+  float disk = 5;
+}

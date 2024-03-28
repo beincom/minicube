@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package agent;
+
+option go_package = "./proto;proto";
+
+service Agent {
+  rpc CreatePod(Pod) returns (Pod);
+}
+
+
+message Pod {
+  string name = 1;
+  string status = 2;
+  string image = 3;
+}
