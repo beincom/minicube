@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package models;
+
+option go_package = "./proto;proto";
+
+
+message Node {
+  string id = 1;
+  string name = 2;
+  string state = 3;
+  string address = 4;
+  int32 cpus = 5;
+  int32 memory = 6;
+  int32 disk = 7;
+  repeated Pod pods = 8;
+  repeated Event events = 11;
+
+  map<string, string> labels = 100;
+}
+
+message Resource {
+  uint64 memory = 1;
+  string cpu = 2;
+}
+
+message httpGet {
+  string path = 1;
+  int32 port = 2;
+}
+
+message healthCheck {
+  httpGet httpGet = 1;
+  int32 initialDelaySeconds = 2;
+  int32 periodSeconds = 3;
+}
+
+message Pod {
+  string id = 1;
+  string name = 2;
+  string state = 3;
+  string last_state = 4;
+  string image = 5;
+  Resource request = 6;
+  Resource limit = 7;
+  map<string, string> exposed_ports = 8;
+  map<string, string> port_bindings = 9;
+  //  string restart_policy = 10;
+  healthCheck liveliness = 11;
+  healthCheck readiness = 12;
+
+
+  repeated Event events = 99;
+  map<string, string> labels = 100;
+}
+
+enum PodState {
+  PENDING = 0;
+  RUNNING = 1;
+  SUCCESS = 2;
+  FAILED = 3;
+  Unknown = 4;
+}
+
+message Event {
+  //  string id = 1;
+  string type = 2;
+  string reason = 3;
+  string agent = 4;
+  string from = 5;
+  string message = 6;
+}
+

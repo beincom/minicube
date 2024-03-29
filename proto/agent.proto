@@ -2,15 +2,11 @@ syntax = "proto3";
 
 package agent;
 
+import "proto/models.proto";
+
 option go_package = "./proto;proto";
 
 service Agent {
-  rpc CreatePod(Pod) returns (Pod);
+  rpc CreatePod(models.Pod) returns (models.Pod) {}
 }
 
-
-message Pod {
-  string name = 1;
-  string status = 2;
-  string image = 3;
-}
